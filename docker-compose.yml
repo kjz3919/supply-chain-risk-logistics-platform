@@ -16,7 +16,7 @@ services:
             - "9001:9001"
         command: server /data --console-address ":9001"
     postgresql:
-        image: postgres:latest
+        image: postgres:16
         container_name: postgres
         environment:
             - POSTGRES_DB=${POSTGRES_DB}
@@ -55,6 +55,26 @@ services:
             - "5434:3000"
         networks:
             - postgres_network
+    dagster:
+        build:
+            context: ./orchestration/dagster_project
+        container_name: dagster
+        volumes:
+            - ./orchestration/dagster_project:/opt/dagster/app
+        env_file:
+            - .env
+        environment:
+            - DAGSTER_POSTGRES_HOST=postgresql
+            - DAGSTER_POSTGRES_USER=${POSTGRES_USER}
+            - DAGSTER_POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - DAGSTER_POSTGRES_DB=${POSTGRES_DB}
+        command: dagster dev -h 0.0.0.0 -p 3000
+        depends_on:
+            - postgresql
+        ports:
+            - "3002:3000"
+        networks:
+            - postgres_network
 volumes:
     minio_data:
         driver: local
@@ -65,3 +85,4 @@ volumes:
 networks:
     postgres_network:
         driver: bridge
+        name: postgres_network
