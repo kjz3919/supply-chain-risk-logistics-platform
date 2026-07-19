@@ -33,7 +33,7 @@ df = pl.scan_csv(source, storage_options=storage_options).collect()
 
 # Writing the raw data to Postgres
 df.write_database(
-    table_name="raw",
+    table_name=f"raw.raw_scm_data_{todays_date}",
     connection=f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@localhost:5432/{POSTGRES_DB}",
     if_table_exists="append"
 )
