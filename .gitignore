@@ -1,2 +1,3 @@
 ingestion/.venv/
 ingestion/.dlt/secrets.toml
+.env
