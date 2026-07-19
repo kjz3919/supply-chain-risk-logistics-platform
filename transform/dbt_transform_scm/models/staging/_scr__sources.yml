@@ -1,0 +1,7 @@
+sources:
+  - name: raw_data
+    description: Raw data ingested from S3 storage by Polars script
+    schema: raw
+    database: scm_platform_dwh
+    tables:
+      - name: raw_scm_data_19072026
