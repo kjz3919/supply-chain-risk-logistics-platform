@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: stg_scr__shipments
+    description: The staging table containing the raw data from S3 storage.
+    columns:
+      - name: shipment_id
+        description: Identificator (PK) for each of the shipment
+        tests:
+          - unique
+          - not_null
+      - name: Date
+        description: Date for each shipment
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: date
+      - name: Origin_Port
+        description: The origin port that shipment gets send from.
+        tests:
+          - not_null
+      - name: Destination_Port
+        description: The destination port that shipment gets sent to.
+        tests:
+          - not_null
+      - name: Transport_Mode
+        description: The type of transport that shipment is sent by.
+        tests:
+          - not_null
+      - name: Product_Category
+        description: The category of the product in the shipment.
+        tests:
+          - not_null
+      - name: Distance_km
+        description: The distance between the ports
+        tests:
+          - not_null
+      - name: Weight_MT
+        description: The weight of the shipment
+        tests:
+          - not_null
+      - name: Fuel_Price_Index
+        description: The fuel price index
+        tests:
+          - not_null
+      - name: Geopolitical_Risk_Score
+        description: The geopolitical risk score
+        tests:
+          - not_null
+      - name: Weather_Condition
+        description: The weather conditions shipment goes through
+        tests:
+          - not_null
+      - name: Carrier_Reliability_Score
+        description: The measurement of carrier's reliability
+        tests:
+          - not_null
+      - name: Lead_Time_Days
+        description: Total elapsed time from the moment the order is initiated unitl the goods are received and ready for use
+        tests:
+          - not_null
+      - name: Disruption_Occured
+        description: The attribute that describes whether the disruption happened.
+        tests:
+          - not_null
