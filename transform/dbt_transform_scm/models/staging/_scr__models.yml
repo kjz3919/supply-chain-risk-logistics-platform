@@ -9,57 +9,57 @@ models:
         tests:
           - unique
           - not_null
-      - name: Date
+      - name: date
         description: Date for each shipment
         tests:
           - not_null
           - dbt_expectations.expect_column_values_to_be_of_type:
               column_type: date
-      - name: Origin_Port
+      - name: origin_port
         description: The origin port that shipment gets send from.
         tests:
           - not_null
-      - name: Destination_Port
+      - name: destination_port
         description: The destination port that shipment gets sent to.
         tests:
           - not_null
-      - name: Transport_Mode
+      - name: transport_mode
         description: The type of transport that shipment is sent by.
         tests:
           - not_null
-      - name: Product_Category
+      - name: product_category
         description: The category of the product in the shipment.
         tests:
           - not_null
-      - name: Distance_km
+      - name: distance_km
         description: The distance between the ports
         tests:
           - not_null
-      - name: Weight_MT
+      - name: weight_mt
         description: The weight of the shipment
         tests:
           - not_null
-      - name: Fuel_Price_Index
+      - name: fuel_price_index
         description: The fuel price index
         tests:
           - not_null
-      - name: Geopolitical_Risk_Score
+      - name: geopolit_risk_score
         description: The geopolitical risk score
         tests:
           - not_null
-      - name: Weather_Condition
+      - name: weather_condition
         description: The weather conditions shipment goes through
         tests:
           - not_null
-      - name: Carrier_Reliability_Score
+      - name: carrier_reliability_score
         description: The measurement of carrier's reliability
         tests:
           - not_null
-      - name: Lead_Time_Days
+      - name: lead_time_days
         description: Total elapsed time from the moment the order is initiated unitl the goods are received and ready for use
         tests:
           - not_null
-      - name: Disruption_Occured
+      - name: disruption_occurred
         description: The attribute that describes whether the disruption happened.
         tests:
           - not_null
