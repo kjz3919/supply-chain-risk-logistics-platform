@@ -1,0 +1,138 @@
+version: 2
+
+models:
+  - name: dim_port
+    description: Dimension for ports between which the shipments get sent
+    columns:
+      - name: port_id
+        description: A surrogate key for port-to-port communication
+        tests:
+          - unique
+          - not_null
+      - name: origin_port
+        description: The port which the shipment gets sent from
+        tests:
+          - not_null
+      - name: destination_port
+        description: The port which the shipment gets sent to
+        tests:
+          - not_null
+  - name: dim_transport_mode
+    description: Dimension table for type of transport for the shipment
+    columns:
+      - name: transport_mode_id
+        description: The surrogate key (identifier) for each of the transport modes
+        tests:
+          - unique
+          - not_null
+      - name: transport_mode
+        description: Each transport mode used for delivering the shipment
+        tests:
+          - not_null
+  - name: dim_date
+    description: Dimension table for dates
+    columns:
+      - name: date_id
+        description: The surrogate key (identifier) for dates
+        tests:
+          - unique
+          - not_null
+      - name: date
+        description: Each date for sending the shipment
+        tests:
+          - not_null
+  - name: dim_product_category
+    description: Dimension table for each of the product category in the shipment
+    columns:
+      - name: product_category_id
+        description: Identifier for each product category
+        tests:
+          - unique
+          - not_null
+      - name: product_category
+        description: Category for every product sent in the shipments
+        tests:
+          - not_null
+  - name: dim_weather_condition
+    description: Dimension table for weather conditions
+    columns:
+      - name: weather_condition_id
+        description: Identifier for each weather condition
+        tests:
+          - unique
+          - not_null
+      - name: weather_condition
+        description: Weather condition occurring during sending the shipment
+        tests:
+          - not_null
+  - name: fct_shipments
+    description: A fact table where the grain is a single shipment
+    columns:
+      - name: shipment_id
+        description: An identifier for a single shipment
+        tests:
+          - unique
+          - not_null
+      - name: port_id
+        description: An identifier for each route the shipment gets sent
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_port')
+              field: port_id
+      - name: date_id
+        description: An identifier for each date
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_id
+      - name: transport_mode_id
+        description: An identifier for each transport mode
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_transport_mode')
+              field: transport_mode_id
+      - name: product_category_id
+        description: An identifier for each product category
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product_category')
+              field: product_category_id
+      - name: weather_condition_id
+        description: An identifier for each weather condition
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_weather_condition')
+              field: weather_condition_id
+      - name: distance_km
+        description: The distance between the ports measured in kms
+        tests:
+          - not_null
+      - name: weight_mt 
+        description: The weight of the shipment
+        tests:
+          - not_null
+      - name: fuel_price_index
+        description: Fuel price index
+        tests:
+          - not_null
+      - name: geopolit_risk_score
+        description: The score indicating geopolitical risk
+        tests:
+          - not_null
+      - name: carrier_reliability_score
+        description: The score indicating the reliability of the carrier
+        tests:
+          - not_null
+      - name: lead_time_days
+        description: The amount of days required to finish the process from start to end
+        tests:
+          - not_null
+      - name: disruption_occurred
+        description: The attribute informing whether the disruption occurred during the process
+        tests:
+          - not_null

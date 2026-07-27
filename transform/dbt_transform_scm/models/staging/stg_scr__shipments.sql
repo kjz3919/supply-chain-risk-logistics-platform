@@ -30,4 +30,4 @@ SELECT shipment_id,
        carrier_reliability_score,
        lead_time_days,
        disruption_occurred
- FROM source
+FROM source
